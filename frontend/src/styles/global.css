@@ -1,0 +1,350 @@
+/* ===========================================================
+   拾光叙 · 海报风设计系统
+   纸色底 / 墨色字 / 朱红点睛 / 大留白 / 衬线标题
+   =========================================================== */
+:root {
+  --paper: #efe8dc;
+  --paper-light: #f7f2e8;
+  --paper-deep: #e4dbca;
+  --ink: #1e1a16;
+  --ink-soft: #4b4238;
+  --muted: #8c8175;
+  --muted-2: #a89c8c;
+  --seal: #a83b2c;
+  --seal-soft: #c2604f;
+  --jade: #4a6357;
+  --gold: #b8893a;
+  --line: rgba(30, 26, 22, 0.16);
+  --line-soft: rgba(30, 26, 22, 0.08);
+
+  --font-serif: "Songti SC", "STSong", "Source Han Serif SC", "Noto Serif SC", "SimSun", Georgia, serif;
+  --font-sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
+  --font-mono: "SFMono-Regular", "JetBrains Mono", Consolas, ui-monospace, monospace;
+
+  /* 兼容旧组件引用 */
+  --paper-2: var(--paper-light);
+  --ink-2: var(--ink-soft);
+  --ink-3: var(--muted);
+  --radius: 0;
+  --shadow-soft: 0 8px 30px rgba(40, 32, 22, 0.06);
+  --shadow-cap: 0 14px 44px rgba(23, 20, 15, 0.3);
+  --ease-soft: cubic-bezier(0.22, 0.61, 0.24, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 纸纹：极淡噪点 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ---------- 海报排版基元 ---------- */
+.display {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.14;
+  margin: 0;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+
+.rule {
+  height: 1px;
+  background: var(--line);
+  border: 0;
+  margin: 0;
+}
+
+/* ---------- 按钮：细线矩形 ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 26px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  transition: color 0.35s var(--ease-soft), background 0.35s var(--ease-soft), border-color 0.35s;
+}
+
+.btn:hover {
+  background: var(--ink);
+  color: var(--paper-light);
+}
+
+.btn.primary {
+  background: var(--seal);
+  border-color: var(--seal);
+  color: #fdf8ef;
+}
+
+.btn.primary:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper-light);
+}
+
+.btn.small {
+  padding: 7px 16px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+}
+
+.btn.on {
+  background: var(--ink);
+  color: var(--paper-light);
+  border-color: var(--ink);
+}
+
+.btn.danger:hover {
+  background: var(--seal);
+  border-color: var(--seal);
+  color: #fdf8ef;
+}
+
+.btn:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+.btn:disabled:hover {
+  background: transparent;
+  color: var(--ink);
+}
+
+/* ---------- 卡片：海报风去阴影、去圆角，仅作容器 ---------- */
+.card {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* ---------- 表单 ---------- */
+input[type="text"],
+input[type="search"],
+select,
+textarea {
+  font-family: inherit;
+  font-size: 14px;
+  padding: 9px 10px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-bottom-color: var(--seal);
+}
+
+textarea {
+  resize: none;
+}
+
+.tag {
+  display: inline-block;
+  padding: 3px 10px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.tag.seal {
+  border-color: rgba(168, 59, 44, 0.4);
+  color: var(--seal);
+}
+
+.empty {
+  padding: 60px 16px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13.5px;
+  letter-spacing: 0.08em;
+}
+
+/* ---------- 滚动条 ---------- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(30, 26, 22, 0.22);
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ---------- Markdown ---------- */
+.md-body {
+  font-size: 14.5px;
+  line-height: 1.95;
+  color: var(--ink-soft);
+  word-break: break-word;
+}
+
+.md-body h1,
+.md-body h2,
+.md-body h3,
+.md-body h4 {
+  font-family: var(--font-serif);
+  margin: 26px 0 12px;
+  line-height: 1.4;
+  color: var(--ink);
+  letter-spacing: 0.04em;
+  font-weight: 500;
+}
+
+.md-body h1 {
+  font-size: 22px;
+}
+
+.md-body h2 {
+  font-size: 18px;
+}
+
+.md-body h3 {
+  font-size: 16px;
+  color: var(--jade);
+}
+
+.md-body p {
+  margin: 10px 0;
+}
+
+.md-body ul,
+.md-body ol {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.md-body li {
+  margin: 5px 0;
+}
+
+.md-body blockquote {
+  margin: 16px 0;
+  padding: 2px 0 2px 18px;
+  border-left: 1px solid var(--gold);
+  color: var(--muted);
+  font-family: var(--font-serif);
+}
+
+.md-body code {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  background: rgba(30, 26, 22, 0.05);
+  padding: 1px 5px;
+}
+
+.md-body pre {
+  background: #241f1a;
+  color: #ece2d0;
+  padding: 14px 16px;
+  overflow-x: auto;
+}
+
+.md-body pre code {
+  background: transparent;
+  color: inherit;
+}
+
+.md-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 13.5px;
+}
+
+.md-body th,
+.md-body td {
+  border-bottom: 1px solid var(--line-soft);
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.md-body th {
+  font-family: var(--font-serif);
+  color: var(--ink);
+}
+
+.md-body hr {
+  border: 0;
+  border-top: 1px solid var(--line-soft);
+  margin: 24px 0;
+}
+
+.md-body strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ---------- 过渡 ---------- */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.4s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
